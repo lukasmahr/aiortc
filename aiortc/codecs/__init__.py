@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Optional
+from typing import Dict, List, Optional
 
 from ..rtcrtpparameters import (
     RTCRtcpFeedback,
@@ -30,7 +30,7 @@ CODECS = {
         PCMA_CODEC,
     ],
     "video": [],
-}
+}  # type: Dict[str, List[RTCRtpCodecParameters]]
 HEADER_EXTENSIONS = {
     "audio": [
         RTCRtpHeaderExtensionParameters(id=1, uri="urn:ietf:params:rtp-hdrext:sdes:mid")
@@ -43,7 +43,7 @@ HEADER_EXTENSIONS = {
             id=2, uri="http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time"
         ),
     ],
-}
+}  # type: Dict[str, List[RTCRtpHeaderExtensionParameters]]
 
 
 def init_codecs() -> None:

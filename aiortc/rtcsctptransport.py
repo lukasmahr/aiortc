@@ -656,18 +656,18 @@ class RTCSctpTransport(AsyncIOEventEmitter):
         self._data_channels = {}
 
     @property
-    def is_server(self):
+    def is_server(self) -> bool:
         return self.transport.transport.role != "controlling"
 
     @property
-    def port(self):
+    def port(self) -> int:
         """
         The local SCTP port number used for data channels.
         """
         return self._local_port
 
     @property
-    def state(self):
+    def state(self) -> str:
         """
         The current state of the SCTP transport.
         """
@@ -681,7 +681,7 @@ class RTCSctpTransport(AsyncIOEventEmitter):
         return self.__transport
 
     @classmethod
-    def getCapabilities(cls):
+    def getCapabilities(cls) -> RTCSctpCapabilities:
         """
         Retrieve the capabilities of the transport.
 
