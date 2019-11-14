@@ -254,6 +254,33 @@ class Vp8Encoder(Encoder):
         if self.codec and (frame.width != self.cfg.g_w or frame.height != self.cfg.g_h):
             lib.vpx_codec_destroy(self.codec)
             self.codec = None
+            
+        if (self.target_bitrate < 300000):
+            frame = frame.reformat(480, 270)
+            self.image = ffi.new("vpx_image_t *")
+            lib.vpx_img_wrap(
+                self.image,
+                lib.VPX_IMG_FMT_I420,
+                frame.width,
+                frame.height,
+                1,
+                ffi.cast("void*", 1),
+            )
+            self.cfg.g_w = 480
+            self.cfg.g_h = 270
+        elif (self.target_bitrate < 600000):
+            frame = frame.reformat(960, 540)
+            self.image = ffi.new("vpx_image_t *")
+            lib.vpx_img_wrap(
+                self.image,
+                lib.VPX_IMG_FMT_I420,
+                frame.width,
+                frame.height,
+                1,
+                ffi.cast("void*", 1),
+            )
+            self.cfg.g_w = 960
+            self.cfg.g_h = 540
 
         if not self.codec:
             # create codec
